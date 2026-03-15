@@ -3,7 +3,7 @@ Kite Integration with Zerodha
 
 ## Overview
 
-**AmoSave.Kite** is an ASP.NET Core Web API middleware that integrates with the [Zerodha Kite Connect v3 API](https://kite.trade/docs/connect/v3/). It caches all responses in a local SQLite database, so repeated requests are served from the cache instead of hitting Kite Connect every time.
+**AmoSave.Kite** is an ASP.NET Core Web API middleware that integrates with the [Zerodha Kite Connect v3 API](https://kite.trade/docs/connect/v3/) using the official [Tech.Zerodha.KiteConnect](https://github.com/zerodha/dotnetkiteconnect) .NET SDK. It caches all responses in a local SQLite database, so repeated requests are served from the cache instead of hitting Kite Connect every time.
 
 ## Features
 
@@ -22,7 +22,7 @@ Kite Integration with Zerodha
 ## Quick Start
 
 ### 1. Prerequisites
-- [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
+- [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0)
 - A Zerodha Kite Connect developer account and API key/secret from [Kite Connect Developer](https://developers.kite.trade/)
 
 ### 2. Configure
@@ -107,11 +107,20 @@ src/
     │   └── KiteDbContext.cs        # EF Core / SQLite
     ├── Models/                     # Domain models + DTOs
     ├── Services/
-    │   ├── KiteConnectService.cs   # HTTP client for Kite Connect
+    │   ├── KiteConnectService.cs   # Kite API client (Tech.Zerodha.KiteConnect SDK)
     │   └── SessionService.cs      # Token lifecycle management
     ├── appsettings.json
     └── Program.cs
 ```
+
+## Kite Connect SDK
+
+This project uses the official [Tech.Zerodha.KiteConnect](https://github.com/zerodha/dotnetkiteconnect) .NET library (`Tech.Zerodha.KiteConnect` v5.0.0). The `KiteConnectService` creates a `Kite` client instance per-request, configured from `appsettings.json`, and delegates all API calls to the library. The library handles:
+
+- SHA-256 checksum computation for session generation
+- Authentication header (`token <api_key>:<access_token>`)
+- HTTP communication with `https://api.kite.trade`
+- Strongly-typed response models
 
 ## Development Notes
 

@@ -16,10 +16,9 @@ builder.Services.AddDbContext<KiteDbContext>(options =>
         ?? "Data Source=amosave_kite.db"));
 
 // ── HTTP Client (Kite Connect) ─────────────────────────────────────────────────
-builder.Services.AddHttpClient<IKiteConnectService, KiteConnectService>(client =>
-{
-    client.Timeout = TimeSpan.FromSeconds(30);
-});
+// KiteConnectService uses the Tech.Zerodha.KiteConnect library which manages its
+// own HttpClient internally; no IHttpClientFactory registration is needed.
+builder.Services.AddScoped<IKiteConnectService, KiteConnectService>();
 
 // ── Services ───────────────────────────────────────────────────────────────────
 builder.Services.AddScoped<ISessionService, SessionService>();
