@@ -1,0 +1,36 @@
+# Build artifacts
+bin/
+obj/
+out/
+publish/
+
+# SQLite database files (runtime data)
+*.db
+*.db-shm
+*.db-wal
+
+# User-specific settings
+*.user
+*.suo
+.vs/
+.vscode/
+.idea/
+
+# NuGet
+*.nupkg
+.nuget/
+
+# Logs
+*.log
+logs/
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+# Test results
+TestResults/
+coverage/
+
+# dotnet tool manifests (keep if tracked)
+# .config/dotnet-tools.json
