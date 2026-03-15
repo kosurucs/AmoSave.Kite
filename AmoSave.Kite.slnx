@@ -1,0 +1,5 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/AmoSave.Kite.API/AmoSave.Kite.API.csproj" />
+  </Folder>
+</Solution>
